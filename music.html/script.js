@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Logout functionality
     const logoutLink = document.getElementById("logoutLink");
 
     if (logoutLink) {

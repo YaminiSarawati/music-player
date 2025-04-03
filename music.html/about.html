@@ -79,7 +79,6 @@
             <li><a href="about.html" style="font-size:100%;">ABOUT US</a></li>
             <li><a href="artist.html"style="font-size:100%;">ARTISTS</a></li>
             <li><a href="music.html" style="font-size:100%;">MUSIC</a></li>
-            <li><a href="login.html" style="font-size:100%;">LOGIN</a></li>
             <li><a href="home.html">HOME</a></li>
         </ul>
     </div>
@@ -103,6 +102,16 @@
             Join us on this musical journey and let the rhythm rise!
         </p>
     </div>
+    <script>
+        document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && !audioPlayer.paused) {
+            audioPlayer.pause();
+            if (currentPlaying) {
+                currentPlaying.classList.remove("active");
+            }
+        }
+    });
+    </script>
 
     <div class="footer">
         <p>&copy; 2025 RYTHM RISE | All Rights Reserved</p>

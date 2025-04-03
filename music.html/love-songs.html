@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sad Songs</title>
+    <link rel="stylesheet" href="music-style.css">
+</head>
+<style>
+    #nav { margin-bottom: 20px; }
+       /* Top-right button */
+       #myPlaylistBtn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: rgb(8, 175, 242);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #myPlaylistBtn:hover {
+            background-color: skyblue;
+        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-image: url('https://images.unsplash.com/photo-1614149162883-504ce4d13909?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        background-size: cover;
+        background-position: center;
+        color: rgb(14, 12, 12);
+    }
+   /* Scroll Navigation Bar Styles */
+.scroll-navbar {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: rgba(0, 0, 0, 0.8);
+padding: 10px;
+display: flex;
+justify-content: center;
+gap: 15px;
+z-index: 1000;
+}
+
+.scroll-navbar button {
+background-color: #444;
+color: white;
+border: none;
+padding: 8px 12px;
+cursor: pointer;
+border-radius: 4px;
+transition: background 0.3s;
+}
+
+.scroll-navbar button:hover {
+background-color: #666;
+}
+
+
+    .container {
+        width: 80%;
+        margin: auto;
+        padding: 50px 0;
+        text-align: center;
+    }
+
+    .music-heading {
+        font-size: 48px;
+        font-weight: bold;
+          color: rgb(235, 224, 226);
+        margin-bottom: 20px;
+    }
+
+    .category {
+        margin-top: 40px;
+        text-align: left;
+    }
+
+    .category h2 {
+        color: rgb(253, 245, 245);
+        font-size: 28px;
+        border-bottom: 2px solid rgb(16, 15, 15);
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+    }
+
+    .music-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .music-card {
+        background: rgba(252, 244, 244, 0.438);
+        padding: 15px;
+        border-radius: 10px;
+        width: 250px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .music-card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .music-card h3 {
+        margin: 10px 0;
+        font-size: 18px;
+        color: rgb(28, 21, 21);
+    }
+
+    .music-card audio {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        margin-top: 40px;
+    }
+    .nav {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .nav li {
+        display: inline;
+        list-style: none;
+    }
+
+    .nav a {
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 10px 20px;
+        color: rgb(194, 237, 5);
+        border-radius: 5px;
+        margin-left: 10px;
+    }
+    .nav a:hover {
+        background: rgba(25, 17, 19, 0.434);}
+        #queue {
+        margin-top: 20px;
+        padding: 10px;
+        border: 2px solid #000;
+        min-height: 50px;
+    }
+    .queue-item {
+        display: inline-block;
+        padding: 10px;
+        margin: 5px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+    }
+    /* Music Navbar Styling */
+.music-navbar {
+position: fixed;
+top: 60px; /* Adjust this if your main navbar is higher */
+left: 0;
+width: 100%;
+background-color: #222;
+padding: 10px 0;
+text-align: center;
+z-index: 999;
+}
+
+.music-navbar button {
+background-color: #444;
+color: white;
+border: none;
+padding: 10px 20px;
+margin: 5px;
+font-size: 16px;
+cursor: pointer;
+border-radius: 5px;
+transition: background 0.3s;
+}
+
+.music-navbar button:hover {
+background-color: #666;
+}
+
+/* Content Sections */
+.music-section {
+height: 100vh;
+padding: 20px;
+text-align: center;
+font-size: 24px;
+background: #f8f8f8;
+margin-top: 80px; /* Space for both navbars */
+}
+</style>
+<body>
+    <div id="nav">
+        <button id="myPlaylistBtn" onclick="goToPlaylist()">🎵 My Playlist</button>
+    </div>
+<!-- Love Songs Section -->
+<div id="section3" class="category">
+    <h2>💖 Love Songs</h2>
+    <div class="music-list">
+        <div class="music-card">
+            <img src="https://wallpapercave.com/wp/wp6144876.jpg" alt="Song Cover">
+            <h3>Allasani Vaari</h3>
+            <p>Music : Shreya Ghosal </p>
+            <audio controls>
+                <source src="playlist/[iSongs.info] 04 - Allasani Vaari.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div>
+                <span class="controls" onclick="addToPlaylist('Allasani Vaari', 'playlist/[iSongs.info] 04 - Allasani Vaari.mp3')">➕</span>
+                <a href="playlist/[iSongs.info] 04 - Allasani Vaari.mp3" download="Allasani Vaari.mp3">⬇️ </a>
+
+            </div>
+            
+        </div>
+
+        <div class="music-card">
+            <img src="https://tse4.mm.bing.net/th?id=OIP.PgxSDaUbXiqJ1N2zuiVkXQHaE6&pid=Api&P=0&h=180" alt="Song Cover">
+            <h3>Chiru Chiru</h3>
+            <p>Music : Micky J Meyer </p>
+            <audio controls>
+                <source src="playlist/[iSongs.info] 01 - Chiru Chiru Chiru.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div>
+                <span class="controls" onclick="addToPlaylist('Chiru Chiru', 'playlist/[iSongs.info] 01 - Chiru Chiru Chiru.mp3')">➕</span>
+                <a href="playlist/[iSongs.info] 01 - Chiru Chiru Chiru.mp3" download="Chiru Chiru.mp3">⬇️ </a>
+
+            </div>
+            
+        </div>
+
+        <div class="music-card">
+            <img src="https://m.media-amazon.com/images/M/MV5BNWU4NTlhYjAtNDAxNS00OWIxLWIzNGQtMGI5MTMzYmQ5MGZhXkEyXkFqcGc@._V1_.jpg" alt="Song Cover">
+            <h3>Nuvvena</h3>
+            <p>Music : Shreya Ghoshal, K.M.Radhakrishnan</p>
+            <audio controls>
+                <source src="playlist/[iSongs.info] 03 - Nuvvena.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div>
+                <span class="controls" onclick="addToPlaylist('Nuvvena', 'playlist/[iSongs.info] 03 - Nuvvena.mp3')">➕</span>
+                <a href="playlist/[iSongs.info] 03 - Nuvvena.mp3" download="Nuvvena.mp3">⬇️ </a>
+
+            </div>
+            
+        </div>
+        <div class="music-card">
+            <img src="https://tse1.mm.bing.net/th?id=OIP.zG756gfmfcyotzp-0q8t-QHaDG&pid=Api&P=0&h=180" alt="Song Cover">
+            <h3>Poolane Kunukeyamantaa</h3>
+            <p>Music: Leon James</p>
+            <audio controls>
+                <source src="playlist/[iSongs.info] 04 - Poolane Kunukeyamantaa.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div>
+                <span class="controls" onclick="addToPlaylist('Poolane Kunukeyamantaa', 'playlist/[iSongs.info] 04 - Poolane Kunukeyamantaa.mp3')">➕</span>
+                <a href="playlist/[iSongs.info] 04 - Poolane Kunukeyamantaa.mp3" download="Poolane Kunukeyamantaa.mp3">⬇️ </a>
+
+            </div>
+            
+        </div>
+        <div class="music-card">
+            <img src="https://tse4.mm.bing.net/th?id=OIP.wYuFY2oqFI8HxFj7dFikGwHaD4&pid=Api&P=0&h=180" alt="Song Cover">
+            <h3>Vinnane Vinnane</h3>
+            <p>Music: Leon James</p>
+            <audio controls>
+                <source src="playlist/[iSongs.info] 05 - Vinnane Vinnane.mp3.crdownload" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div>
+                <span class="controls" onclick="addToPlaylist('Vinnane Vinnane', 'playlist/[iSongs.info] 05 - Vinnane Vinnane.mp3.crdownload')">➕</span>
+                <a href="playlist/[iSongs.info] 05 - Vinnane Vinnane.mp3.crdownload" download=".mp3">⬇️ </a>
+
+            </div>
+            
+        </div>
+            
+        </div>
+    </div>
+     <!--
+<div id="playlist-container">
+    <h2>📜 Playlist</h2>
+    <ul id="playlist"></ul>
+</div>-->
+ <!-- Queue Display -->
+ <!-- <div>
+    <h2>📝 Queue</h2>
+    <ul id="queue-list"></ul>
+</div>
+<h3 id="current-song-title">Now Playing: None</h3>
+    <audio id="audio-player" controls></audio>-->
+    <h2>Music Queue <span onclick="toggleRepeat()">🔁</span> <span onclick="toggleShuffle()">🔀</span></h2>
+    
+    <p id="current-song-title">Now Playing: None</p>
+    
+    <audio id="audio-player" controls></audio>
+    <div id="queue-container">
+        <h3>Queue List</h3>
+        <div id="queue-list"></div>
+    <script>
+         function goToPlaylist() {
+            window.location.href = "playlist.html"; // Redirects to the playlist page
+        }
+  let songQueue = [
+            { title: "Allasani Vaari", src: "playlist/[iSongs.info] 04 - Allasani Vaari.mp3" },
+            { title: "Chiru Chiru", src: "playlist/[iSongs.info] 01 - Chiru Chiru Chiru.mp3" },
+            { title: "Nuvvena", src: "playlist/[iSongs.info] 03 - Nuvvena.mp3" },
+            { title: "Poolane Kunukeyamantaa", src: "playlist/[iSongs.info] 04 - Poolane Kunukeyamantaa.mp3" },
+            { title: "Vinnane Vinnane", src: "playlist/[iSongs.info] 05 - Vinnane Vinnane.mp3.crdownload" }
+
+        ];
+
+        let currentIndex = null;
+        let isRepeat = false;
+        let isShuffle = false;
+        let playedSongs = [];
+        let audioPlayer = document.getElementById("audio-player");
+
+        // Load and play a song
+        function loadSong(index) {
+            if (index >= 0 && index < songQueue.length) {
+                audioPlayer.src = songQueue[index].src;
+                document.getElementById("current-song-title").innerText = "Now Playing: " + songQueue[index].title;
+                audioPlayer.play();
+            }
+        }
+
+        // Toggle Repeat Mode
+        function toggleRepeat() {
+            isRepeat = !isRepeat;
+            alert("Repeat Mode: " + (isRepeat ? "ON - Playing only current song" : "OFF"));
+        }
+
+        // Toggle Shuffle Mode
+        function toggleShuffle() {
+            isShuffle = !isShuffle;
+            playedSongs = []; // Reset played songs list when shuffle starts
+            alert("Shuffle Mode: " + (isShuffle ? "ON - Playing songs in random order" : "OFF"));
+        }
+
+     
+
+        // Play next song (handles Repeat and Shuffle)
+        function playNextSong() {
+            if (isRepeat) {
+                loadSong(currentIndex); // Play the same song again
+            } else if (isShuffle) {
+                if (playedSongs.length === songQueue.length) {
+                    playedSongs = []; // Reset shuffle queue if all songs played
+                }
+
+                let nextIndex;
+                do {
+                    nextIndex = Math.floor(Math.random() * songQueue.length);
+                } while (playedSongs.includes(nextIndex)); // Ensure a song is not repeated in the current shuffle session
+
+                playedSongs.push(nextIndex);
+                currentIndex = nextIndex;
+                loadSong(currentIndex);
+            } else {
+                currentIndex = (currentIndex + 1) % songQueue.length;
+                loadSong(currentIndex);
+            }
+        }
+
+        // Event Listener to play next song when current one ends
+        audioPlayer.addEventListener("ended", playNextSong);
+
+        // Load and display song queue
+        function updateQueueDisplay() {
+            let queueList = document.getElementById("queue-list");
+            queueList.innerHTML = "";
+
+            songQueue.forEach((song, index) => {
+                let songItem = document.createElement("p");
+                songItem.innerHTML = `🎵 ${song.title}`;
+                songItem.style.cursor = "pointer";
+                songItem.addEventListener("click", () => {
+                    currentIndex = index;
+                    loadSong(index);
+                });
+                queueList.appendChild(songItem);
+            });
+        }
+
+        // Initialize queue display and load first song
+        updateQueueDisplay();
+        loadSong(currentIndex);
+
+        function addToPlaylist(title, src) {
+            let playlist = JSON.parse(localStorage.getItem("playlist")) || [];
+            
+            // Check if song already exists in the playlist
+            if (!playlist.some(song => song.src === src)) {
+                playlist.push({ title, src });
+                localStorage.setItem("playlist", JSON.stringify(playlist));
+                alert(`"${title}" added to your playlist!`);
+            } else {
+                alert(`"${title}" is already in the playlist.`);
+            }
+        }
+        document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && !audioPlayer.paused) {
+            audioPlayer.pause();
+            if (currentPlaying) {
+                currentPlaying.classList.remove("active");
+            }
+        }
+    });
+    </script>
+</div>
+<div class="footer">
+    <p style="color: white;">&copy; 2025 RYTHM RISE | All Rights Reserved</p>
+</div>>
+     
+</body>
+</html>
